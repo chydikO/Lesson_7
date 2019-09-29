@@ -24,6 +24,7 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
     private String inputArea = "";
+    private static final String ZERO = "0";
     @BindView(R.id.textViewResult) TextView textViewResult;
     @BindViews({ R.id.btn_addition, R.id.btn_division, R.id.btn_double_zero,
                 R.id.btn_eight, R.id.btn_five, R.id.btn_four, R.id.btn_multiplication, R.id.btn_nine,
@@ -40,15 +41,18 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({ R.id.btn_addition, R.id.btn_division, R.id.btn_double_zero,
             R.id.btn_eight, R.id.btn_five, R.id.btn_four, R.id.btn_multiplication, R.id.btn_nine,
             R.id.btn_one, R.id.btn_result, R.id.btn_seven, R.id.btn_six, R.id.btn_subtraction,
-            R.id.btn_three, R.id.btn_two, R.id.btn_zero }) void buttonClick(Button button) {
+            R.id.btn_three, R.id.btn_two, R.id.btn_zero, R.id.btn_clear }) void buttonClick(Button button) {
 
-        switch (button.getId()){
+        switch (button.getId()) {
             case R.id.btn_addition:
             case R.id.btn_division:
             case R.id.btn_multiplication:
             case R.id.btn_subtraction:
             case R.id.btn_result:
-                inputArea += button.getContentDescription().toString();
+                arithmeticOperation(button);
+                break;
+            case R.id.btn_clear:
+                inputArea = ZERO;
                 textViewResult.setText(inputArea);
                 break;
             default:
@@ -56,5 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 textViewResult.setText(inputArea);
                 break;
         }
+    }
+
+    private void arithmeticOperation(Button button) {
+        inputArea += button.getContentDescription().toString();
+        textViewResult.setText(inputArea);
     }
 }
