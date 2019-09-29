@@ -43,68 +43,16 @@ public class MainActivity extends AppCompatActivity {
             R.id.btn_three, R.id.btn_two, R.id.btn_zero }) void buttonClick(Button button) {
 
         switch (button.getId()){
-            case R.id.btn_zero:
-                inputArea += "0";
-                textViewResult.setText(inputArea);
-                break;
-            case R.id.btn_double_zero:
-                inputArea += "00";
-                textViewResult.setText(inputArea);
-                break;
-            case R.id.btn_one:
-                inputArea += "1";
-                textViewResult.setText(inputArea);
-                break;
-            case R.id.btn_two:
-                inputArea += "2";
-                textViewResult.setText(inputArea);
-                break;
-            case R.id.btn_three:
-                inputArea += "3";
-                textViewResult.setText(inputArea);
-                break;
-            case R.id.btn_four:
-                inputArea += "4";
-                textViewResult.setText(inputArea);
-                break;
-            case R.id.btn_five:
-                inputArea += "5";
-                textViewResult.setText(inputArea);
-                break;
-            case R.id.btn_six:
-                inputArea += "6";
-                textViewResult.setText(inputArea);
-                break;
-            case R.id.btn_seven:
-                inputArea += "7";
-                textViewResult.setText(inputArea);
-                break;
-            case R.id.btn_eight:
-                inputArea += "8";
-                textViewResult.setText(inputArea);
-                break;
-            case R.id.btn_nine:
-                inputArea += "9";
-                textViewResult.setText(inputArea);
-                break;
             case R.id.btn_addition:
-                inputArea += "+";
-                textViewResult.setText(inputArea);
-                break;
             case R.id.btn_division:
-                inputArea += "/";
-                textViewResult.setText(inputArea);
-                break;
             case R.id.btn_multiplication:
-                inputArea += "*";
-                textViewResult.setText(inputArea);
-                break;
             case R.id.btn_subtraction:
-                inputArea += "-";
+            case R.id.btn_result:
+                inputArea += button.getContentDescription().toString();
                 textViewResult.setText(inputArea);
                 break;
-            case R.id.btn_result:
-                inputArea += "=";
+            default:
+                inputArea += button.getContentDescription().toString();
                 textViewResult.setText(inputArea);
                 break;
         }
