@@ -52,7 +52,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        clearInputArea();
         btnClearLeft.setText("<-");
+
+        //Add Tag`s to buttons
         btnAddition.setTag(OperationType.ADDITION);
         btnDivision.setTag(OperationType.DIVISION);
         btnMultiplication.setTag(OperationType.MULTIPLICATION);
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({ R.id.btn_addition, R.id.btn_division, R.id.btn_coma,
             R.id.btn_eight, R.id.btn_five, R.id.btn_four, R.id.btn_multiplication, R.id.btn_nine,
             R.id.btn_one, R.id.btn_result, R.id.btn_seven, R.id.btn_six, R.id.btn_subtraction,
-            R.id.btn_three, R.id.btn_two, R.id.btn_zero, R.id.btn_clear }) void buttonClick(Button button) {
+            R.id.btn_three, R.id.btn_two, R.id.btn_zero, R.id.btn_clear, R.id.btn_clear_left }) void buttonClick(Button button) {
 
         switch (button.getId()) {
             case R.id.btn_addition:
@@ -72,17 +75,40 @@ public class MainActivity extends AppCompatActivity {
                 arithmeticOperation(button);
                 break;
             case R.id.btn_clear:
-                inputArea = ZERO;
-                textViewResult.setText(inputArea);
+                clearInputArea();
+                commands.clear();
                 break;
             case R.id.btn_result:
-                arithmeticOperation(button);
+                if (commands.containsKey(Symbol.FIRST_DIGIT) && commands.containsKey(Symbol.OPERATION)) {
+                    commands.put(Symbol.SECOND_DIGIT, textViewResult.getText());
+                }
+                doCalc();
+                commands.put(Symbol.OPERATION, operationType);
+                commands.remove(Symbol.SECOND_DIGIT);
+                break;
+            case R.id.btn_coma:
+                if (!textViewResult.getText().toString().contains(",")) {
+                    inputArea += textViewResult.getText() + ",";
+                    textViewResult.setText(inputArea);
+                }
+                break;
+            case R.id.btn_clear_left:
+                if (inputArea != null && inputArea.length() != 0 && inputArea.length() != 1) {
+                    inputArea =  inputArea.substring( 0, inputArea.length() - 1);
+                    textViewResult.setText(inputArea);
+                } else {
+        clearInputArea();                }
                 break;
             default:
                 inputArea += button.getContentDescription().toString();
                 textViewResult.setText(inputArea);
                 break;
         }
+    }
+
+    private void clearInputArea() {
+        inputArea = ZERO;
+        textViewResult.setText(inputArea);
     }
 
     private void arithmeticOperation(Button button) {
